@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+int damerau_levenshtein(string string1,string string2){
+    int length1=string1.length();
+    int length2=string2.length();
+    int d[length1+1][length2+1];
+    int i,j,cost;
+    for (i=0;i<=length1;i++) d[i][0]=i;
+    for(j=0;j<=length2;j++) d[0][j]=j;
+    for (i=1;i<=length1;i++) {
+        for(j=1;j<=length2;j++) {
+            if(string1[i-1]==string2[j-1]) cost = 0;
+            else cost = 1;
+            d[i][j]=min(d[i-1][j]+1,min(d[i][j-1]+1,d[i-1][j-1]+cost));
+            if((i>1)&&(j>1)&&(string1[i-1]==string2[j-2])&&(string1[i-2]==string2[j-1])) {
+            d[i][j]=min(d[i][j],d[i-2][j-2]+cost);
+            }
+        }
+    }
+    return d[length1][length2];
+}
+int main () {
+string string1,string2;
+cin>>string1>>string2;
+cout<<damerau_levenshtein(string1,string2);
+return 0;
+}
