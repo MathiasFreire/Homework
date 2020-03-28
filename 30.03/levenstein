@@ -16,7 +16,7 @@ int replacee=levenshtein(word1,length1-1,word2,length2-1)+replaceCost;
 return min(del,insertt,replacee);
 }
 int main() {
-char s1,s2;
+string s1,s2;
 cin>>s1>>s2;
 cout<<levenstein (s1,s2);
 return 0;
